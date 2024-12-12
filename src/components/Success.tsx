@@ -2,7 +2,6 @@ import { IndianRupee } from "lucide-react";
 import { Separator } from "./ui/separator";
 import { Link } from "react-router-dom";
 import { Button } from "./ui/button";
-import { CartItem } from "@/types/cartType";
 import Image from "@/assets/hero_pizza.png";
 const Success = () => {
   const orders = [];
