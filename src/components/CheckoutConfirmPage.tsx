@@ -9,7 +9,6 @@ import { DialogTitle } from "@radix-ui/react-dialog";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { CheckoutSessionRequest } from "@/types/orderType";
 import { Loader2 } from "lucide-react";
 
 const CheckoutConfirmPage = ({
@@ -40,7 +39,7 @@ const CheckoutConfirmPage = ({
   
   };
 
-  let loading = false;
+  const loading = false;
   
 
   return (
