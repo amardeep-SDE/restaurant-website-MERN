@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { MenuFormSchema, menuSchema } from "@/schema/menuSchema";
+import { useMenuStore } from "@/store/useMenuStore";
 import { MenuItem } from "@/types/restaurantType";
 import { Loader2 } from "lucide-react";
 import {
@@ -29,8 +30,6 @@ const EditMenu = ({
   editOpen: boolean;
   setEditOpen: Dispatch<SetStateAction<boolean>>;
 }) => {
-
-  const loading = false;
   const [input, setInput] = useState<MenuFormSchema>({
     name: "",
     description: "",
@@ -38,6 +37,7 @@ const EditMenu = ({
     image: undefined,
   });
   const [error, setError] = useState<Partial<MenuFormSchema>>({});
+  const {loading, editMenu} = useMenuStore();
 
   const changeEventHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
@@ -46,8 +46,6 @@ const EditMenu = ({
 
   const submitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(input);
-    
     const result = menuSchema.safeParse(input);
     if (!result.success) {
       const fieldErrors = result.error.formErrors.fieldErrors;
@@ -56,12 +54,21 @@ const EditMenu = ({
     }
      
     // api ka kaam start from here
-   
+    try {
+      const formData = new FormData();
+      formData.append("name", input.name);
+      formData.append("description", input.description);
+      formData.append("price", input.price.toString());
+      if(input.image){
+        formData.append("image", input.image);
+      }
+      await editMenu(selectedMenu._id, formData);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => { 
-    console.log(selectedMenu);
-    
     setInput({
       name: selectedMenu?.name || "",
       description: selectedMenu?.description || "",
