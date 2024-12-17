@@ -50,7 +50,6 @@ export const useUserStore = create<UserState>()(persist((set) => ({
                     'Content-Type': 'application/json'
                 }
             });
-            console.log(response);
 
             if (response.data.success) { 
                 toast.success(response.data.message);

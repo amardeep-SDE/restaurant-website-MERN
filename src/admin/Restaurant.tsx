@@ -53,7 +53,6 @@ const Restaurant = () => {
         formData.append("imageFile", input.imageFile);
       }
 
-      console.log(formData);
       
 
       if (restaurant) {
@@ -85,7 +84,6 @@ const Restaurant = () => {
       };
       }
     fetchRestaurant();
-    console.log(restaurant);
     
   }, []);
 
