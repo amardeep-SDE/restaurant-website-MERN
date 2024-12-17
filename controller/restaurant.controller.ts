@@ -9,7 +9,6 @@ export const createRestaurant = async (req: Request, res: Response) => {
         const { restaurantName, city, country, deliveryTime, cuisines } = req.body;
         const file = req.file;
  
-        console.log(restaurantName, city, country, deliveryTime, cuisines);
         
 
         const restaurant = await Restaurant.findOne({ user: req.id });
@@ -142,7 +141,6 @@ export const searchRestaurant = async (req: Request, res: Response) => {
         const selectedCuisines = (req.query.selectedCuisines as string || "").split(",").filter(cuisine => cuisine);
         const query: any = {};
         // basic search based on searchText (name ,city, country)
-        console.log(selectedCuisines);
         
         if (searchText) {
             query.$or = [
