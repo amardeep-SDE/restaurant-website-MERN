@@ -68,7 +68,7 @@ export const useRestaurantStore = create<RestaurantState>()(persist((set, get) =
     },
     searchRestaurant: async (searchText: string, searchQuery: string, selectedCuisines: any) => {
         try {
-            // set({ loading: true });
+            set({ loading: true });
 
             const params = new URLSearchParams();
             params.set("searchQuery", searchQuery);
@@ -118,6 +118,8 @@ export const useRestaurantStore = create<RestaurantState>()(persist((set, get) =
         try {
             const response = await axios.get(`${API_END_POINT}/${restaurantId}`);
             if (response.data.success) {
+                console.log(response.data);
+                
                 set({ singleRestaurant: response.data.restaurant })
             }
         } catch (error) { }

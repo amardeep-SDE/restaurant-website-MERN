@@ -38,9 +38,13 @@ import {
 } from "./ui/sheet";
 import { Separator } from "./ui/separator";
 import { useUserStore } from "@/store/useUserStore";
+import { useCartStore } from "@/store/useCartStore";
+import { useThemeStore } from "@/store/useThemeStore";
 
 const Navbar = () => {
   const { user, loading, logout } = useUserStore();
+  const { cart } = useCartStore();
+  const {setTheme} = useThemeStore();
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -83,12 +87,22 @@ const Navbar = () => {
                     <span className="sr-only">Toggle theme</span>
                   </Button>
                 </DropdownMenuTrigger>
-               
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={()=> setTheme('light')}>Light</DropdownMenuItem>
+                  <DropdownMenuItem onClick={()=> setTheme('dark')}>Dark</DropdownMenuItem>
+                </DropdownMenuContent>
               </DropdownMenu>
             </div>
             <Link to="/cart" className="relative cursor-pointer">
               <ShoppingCart />
-              
+              {cart.length > 0 && (
+                <Button
+                  size={"icon"}
+                  className="absolute -inset-y-3 left-2 text-xs rounded-full w-4 h-4 bg-red-500 hover:bg-red-500"
+                >
+                  {cart.length}
+                </Button>
+              )}
             </Link>
             <div>
               <Avatar>
@@ -126,6 +140,7 @@ export default Navbar;
 
 const MobileNavbar = () => {
   const { user, logout, loading } = useUserStore();
+  const {setTheme} = useThemeStore();
   return (
     <Sheet>
       <SheetTrigger asChild>

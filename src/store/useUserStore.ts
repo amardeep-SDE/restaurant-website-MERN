@@ -44,7 +44,7 @@ export const useUserStore = create<UserState>()(persist((set) => ({
     // signup api implementation
     signup: async (input: SignupInputState) => {
         try {
-            // set({ loading: true });
+            set({ loading: true });
             const response = await axios.post(`${API_END_POINT}/signup`, input, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -63,7 +63,7 @@ export const useUserStore = create<UserState>()(persist((set) => ({
     },
     login: async (input: LoginInputState) => {
         try {
-            // set({ loading: true });
+            set({ loading: true });
             const response = await axios.post(`${API_END_POINT}/login`, input, {
                 headers: {
                     'Content-Type': 'application/json'
